@@ -1,0 +1,11 @@
+## 1. Implementation
+- [ ] 1.1 Add Google Calendar API dependency
+- [ ] 1.2 Create calendar event data model
+- [ ] 1.3 Implement timezone detection service
+- [ ] 1.4 Add Google Calendar service integration
+- [ ] 1.5 Create ICS file generation utility
+- [ ] 1.6 Implement calendar selection UI
+- [ ] 1.7 Add event creation from ticket data
+- [ ] 1.8 Add calendar permission handling
+- [ ] 1.9 Add unit tests for timezone logic
+- [ ] 1.10 Add integration tests for calendar API

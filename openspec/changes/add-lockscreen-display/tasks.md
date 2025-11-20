@@ -1,0 +1,11 @@
+## 1. Implementation
+- [ ] 1.1 Add notification and overlay permissions
+- [ ] 1.2 Create lockscreen display service
+- [ ] 1.3 Implement QR code overlay UI
+- [ ] 1.4 Add notification scheduling logic
+- [ ] 1.5 Create time-based trigger system
+- [ ] 1.6 Implement full-width QR code display
+- [ ] 1.7 Add original ticket display component
+- [ ] 1.8 Create notification management
+- [ ] 1.9 Add permission request flow
+- [ ] 1.10 Add unit tests for scheduling logic
