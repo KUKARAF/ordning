@@ -12,13 +12,15 @@ import com.rafael.ordnung.data.model.Converters
 import javax.inject.Inject
 
 @Database(
-    entities = [TicketEntity::class],
-    version = 1,
+    entities = [TicketEntity::class, UserEntity::class, AuthTokenEntity::class],
+    version = 2,
     exportSchema = true
 )
 @TypeConverters(Converters::class)
 abstract class OrdnungDatabase : RoomDatabase() {
     abstract fun ticketDao(): TicketDao
+    abstract fun userDao(): UserDao
+    abstract fun authTokenDao(): AuthTokenDao
 }
 
 class DatabaseCallback @Inject constructor() : RoomDatabase.Callback() {
