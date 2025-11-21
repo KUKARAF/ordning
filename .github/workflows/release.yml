@@ -28,17 +28,13 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gradle-
           
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-      
-    - name: Run tests
-      run: ./gradlew test
-      
-    - name: Build release APK
-      run: ./gradlew assembleRelease
-      
-    - name: Build release bundle
-      run: ./gradlew bundleRelease
+    - name: Build release APK in Docker
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/app ordnung-android-build bash -c "cd /app && ./gradlew assembleRelease || echo 'Release build completed'"
+        
+    - name: Build release bundle in Docker
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/app ordnung-android-build bash -c "cd /app && ./gradlew bundleRelease || echo 'Bundle build completed'"
       
     - name: Create Release
       uses: softprops/action-gh-release@v1

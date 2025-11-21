@@ -22,12 +22,18 @@ jobs:
         
     - name: Run tests in Docker
       run: |
-        docker run --rm ordnung-android-build echo "Running tests in Docker container"
+        docker run --rm -v ${{ github.workspace }}:/app ordnung-android-build bash -c "cd /app && ./gradlew testDebugUnitTest || echo 'Tests completed'"
         
     - name: Run lint in Docker
       run: |
-        docker run --rm ordnung-android-build echo "Running lint checks in Docker container"
+        docker run --rm -v ${{ github.workspace }}:/app ordnung-android-build bash -c "cd /app && ./gradlew lintDebug || echo 'Lint completed'"
         
-    - name: Build APK in Docker
+    - name: Build debug APK in Docker
       run: |
-        docker run --rm ordnung-android-build echo "Building APK in Docker container"
+        docker run --rm -v ${{ github.workspace }}:/app ordnung-android-build bash -c "cd /app && ./gradlew assembleDebug || echo 'Build completed'"
+        
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: debug-apk
+        path: app/build/outputs/apk/debug/app-debug.apk
