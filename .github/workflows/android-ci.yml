@@ -18,7 +18,7 @@ jobs:
       
     - name: Build Docker image
       run: |
-        docker build -t ordnung-android-build .
+        docker build -t ordnung-android-build -f Dockerfile .
         
     - name: Run tests in Docker
       run: |
