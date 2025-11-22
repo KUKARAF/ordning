@@ -9,14 +9,13 @@ import com.google.android.gms.common.api.ApiException
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential
 import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.gson.GsonFactory
-import com.google.api.services.calendar.CalendarScopes
-import com.google.api.services.drive.DriveScopes
+
 import com.rafael.ordnung.domain.model.AuthResult
 import com.rafael.ordnung.domain.model.AuthSession
 import com.rafael.ordnung.domain.model.AuthToken
 import com.rafael.ordnung.domain.model.User
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.tasks.await
+import com.google.android.gms.tasks.await
 import java.time.LocalDateTime
 import java.time.ZoneId
 import javax.inject.Inject
@@ -33,10 +32,10 @@ class GoogleAuthDataSource @Inject constructor(
             .requestEmail()
             .requestProfile()
             .requestScopes(
-                CalendarScopes.CALENDAR,
-                CalendarScopes.CALENDAR_EVENTS,
-                DriveScopes.DRIVE_FILE,
-                DriveScopes.DRIVE_APPDATA
+                com.google.api.services.calendar.CalendarScopes.CALENDAR,
+                com.google.api.services.calendar.CalendarScopes.CALENDAR_EVENTS,
+                com.google.api.services.drive.DriveScopes.DRIVE_FILE,
+                com.google.api.services.drive.DriveScopes.DRIVE_APPDATA
             )
             .build()
         
@@ -83,17 +82,17 @@ class GoogleAuthDataSource @Inject constructor(
                 email = account.email ?: "",
                 displayName = account.displayName,
                 photoUrl = account.photoUrl?.toString(),
-                isEmailVerified = account.isEmailVerified
+                        isEmailVerified = account.email != null // GoogleSignInAccount doesn't have isEmailVerified
             )
             
             // Get OAuth token for API calls
             val credential = GoogleAccountCredential.usingOAuth2(
                 context,
                 listOf(
-                    CalendarScopes.CALENDAR,
-                    CalendarScopes.CALENDAR_EVENTS,
-                    DriveScopes.DRIVE_FILE,
-                    DriveScopes.DRIVE_APPDATA
+                    com.google.api.services.calendar.CalendarScopes.CALENDAR,
+                    com.google.api.services.calendar.CalendarScopes.CALENDAR_EVENTS,
+                    com.google.api.services.drive.DriveScopes.DRIVE_FILE,
+                    com.google.api.services.drive.DriveScopes.DRIVE_APPDATA
                 )
             )
             credential.selectedAccount = account.account
@@ -176,10 +175,10 @@ class GoogleAuthDataSource @Inject constructor(
             val credential = GoogleAccountCredential.usingOAuth2(
                 context,
                 listOf(
-                    CalendarScopes.CALENDAR,
-                    CalendarScopes.CALENDAR_EVENTS,
-                    DriveScopes.DRIVE_FILE,
-                    DriveScopes.DRIVE_APPDATA
+                    com.google.api.services.calendar.CalendarScopes.CALENDAR,
+                    com.google.api.services.calendar.CalendarScopes.CALENDAR_EVENTS,
+                    com.google.api.services.drive.DriveScopes.DRIVE_FILE,
+                    com.google.api.services.drive.DriveScopes.DRIVE_APPDATA
                 )
             )
             credential.selectedAccount = account.account
@@ -204,7 +203,7 @@ class GoogleAuthDataSource @Inject constructor(
                         email = account.email ?: "",
                         displayName = account.displayName,
                         photoUrl = account.photoUrl?.toString(),
-                        isEmailVerified = account.isEmailVerified
+                isEmailVerified = account.email != null // GoogleSignInAccount doesn't have isEmailVerified
                     ),
                     token = authToken,
                     isActive = true

@@ -2,8 +2,8 @@ package com.rafael.ordnung.data.repository
 
 import com.rafael.ordnung.data.database.AuthTokenDao
 import com.rafael.ordnung.data.database.UserDao
-import com.rafael.ordnung.data.model.toDomainModel
-import com.rafael.ordnung.data.model.toEntity
+import com.rafael.ordnung.data.model.AuthTokenEntity
+import com.rafael.ordnung.data.model.UserEntity
 import com.rafael.ordnung.domain.model.AuthSession
 import com.rafael.ordnung.domain.model.AuthToken
 import com.rafael.ordnung.domain.model.User

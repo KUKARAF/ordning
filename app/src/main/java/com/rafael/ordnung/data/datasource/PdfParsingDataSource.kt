@@ -5,8 +5,8 @@ import android.net.Uri
 import com.rafael.ordnung.domain.model.Ticket
 import com.rafael.ordnung.domain.model.TravelType
 import dagger.hilt.android.qualifiers.ApplicationContext
-import org.apache.pdfbox.pdmodel.PDDocument
-import org.apache.pdfbox.text.PDFTextStripper
+import com.tom_roush.pdfbox.pdmodel.PDDocument
+import com.tom_roush.pdfbox.text.PDFTextStripper
 import java.io.File
 import java.io.FileInputStream
 import java.security.MessageDigest
