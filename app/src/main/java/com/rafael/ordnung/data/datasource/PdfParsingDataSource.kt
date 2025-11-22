@@ -110,7 +110,7 @@ class PdfParsingDataSource @Inject constructor(
         return try {
             val document = PDDocument.load(fileBytes)
             val stripper = PDFTextStripper()
-            val text = stripper.text(document)
+            val text = stripper.getText(document)
             document.close()
             text
         } catch (e: Exception) {
