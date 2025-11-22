@@ -33,10 +33,8 @@ class GoogleAuthDataSource @Inject constructor(
             .requestEmail()
             .requestProfile()
             .requestScopes(
-                com.google.api.services.calendar.CalendarScopes.CALENDAR,
-                com.google.api.services.calendar.CalendarScopes.CALENDAR_EVENTS,
-                com.google.api.services.drive.DriveScopes.DRIVE_FILE,
-                com.google.api.services.drive.DriveScopes.DRIVE_APPDATA
+                Scopes.EMAIL,
+                Scopes.PROFILE
             )
             .build()
         
@@ -90,10 +88,10 @@ class GoogleAuthDataSource @Inject constructor(
             val credential = GoogleAccountCredential.usingOAuth2(
                 context,
                 listOf(
-                    com.google.api.services.calendar.CalendarScopes.CALENDAR,
-                    com.google.api.services.calendar.CalendarScopes.CALENDAR_EVENTS,
-                    com.google.api.services.drive.DriveScopes.DRIVE_FILE,
-                    com.google.api.services.drive.DriveScopes.DRIVE_APPDATA
+                    "https://www.googleapis.com/auth/calendar",
+                    "https://www.googleapis.com/auth/calendar.events",
+                    "https://www.googleapis.com/auth/drive.file",
+                    "https://www.googleapis.com/auth/drive.appdata"
                 )
             )
             credential.selectedAccount = account.account
@@ -176,10 +174,10 @@ class GoogleAuthDataSource @Inject constructor(
             val credential = GoogleAccountCredential.usingOAuth2(
                 context,
                 listOf(
-                    com.google.api.services.calendar.CalendarScopes.CALENDAR,
-                    com.google.api.services.calendar.CalendarScopes.CALENDAR_EVENTS,
-                    com.google.api.services.drive.DriveScopes.DRIVE_FILE,
-                    com.google.api.services.drive.DriveScopes.DRIVE_APPDATA
+                    "https://www.googleapis.com/auth/calendar",
+                    "https://www.googleapis.com/auth/calendar.events",
+                    "https://www.googleapis.com/auth/drive.file",
+                    "https://www.googleapis.com/auth/drive.appdata"
                 )
             )
             credential.selectedAccount = account.account
