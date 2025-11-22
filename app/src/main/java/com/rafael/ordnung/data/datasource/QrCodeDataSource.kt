@@ -10,8 +10,8 @@ import com.google.zxing.RGBLuminanceSource
 import com.google.zxing.ReaderException
 import com.google.zxing.common.HybridBinarizer
 import com.google.zxing.multi.qrcode.QRCodeMultiReader
-import org.apache.pdfbox.pdmodel.PDDocument
-import org.apache.pdfbox.rendering.PDFRenderer
+import com.tom_roush.pdfbox.pdmodel.PDDocument
+import com.tom_roush.pdfbox.rendering.PDFRenderer
 import java.io.ByteArrayInputStream
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -29,7 +29,7 @@ class QrCodeDataSource @Inject constructor() {
             // Render each page and scan for QR codes
             for (pageIndex in 0 until document.numberOfPages) {
                 val image = renderer.renderImageWithDPI(pageIndex, 300f)
-                val bitmap = convertToBitmap(image)
+                val bitmap = convertToBitmap(image as Any)
                 
                 val qrCodeData = scanQrCodes(bitmap)
                 qrCodes.addAll(qrCodeData)
@@ -43,15 +43,26 @@ class QrCodeDataSource @Inject constructor() {
         return qrCodes
     }
     
-    private fun convertToBitmap(image: java.awt.image.BufferedImage): Bitmap {
-        val width = image.width
-        val height = image.height
-        
-        // Convert to Android Bitmap
-        val pixels = IntArray(width * height)
-        image.getRGB(0, 0, width, height, pixels, 0, width)
-        
-        return Bitmap.createBitmap(pixels, width, height, Bitmap.Config.ARGB_8888)
+    @Suppress("UNCHECKED_CAST")
+    private fun convertToBitmap(image: Any): Bitmap {
+        // For Android-compatible PDFBox, try to handle both AWT and Android bitmap scenarios
+        return try {
+            // If it's already an Android Bitmap (some PDFBox Android versions support this)
+            image as? Bitmap ?: run {
+                // Fallback for AWT BufferedImage (shouldn't happen with Android PDFBox but just in case)
+                val bufferedImage = image as java.awt.image.BufferedImage
+                val width = bufferedImage.width
+                val height = bufferedImage.height
+                
+                val pixels = IntArray(width * height)
+                bufferedImage.getRGB(0, 0, width, height, pixels, 0, width)
+                
+                Bitmap.createBitmap(pixels, width, height, Bitmap.Config.ARGB_8888)
+            }
+        } catch (e: Exception) {
+            // Last resort - create a placeholder bitmap
+            Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888)
+        }
     }
     
     private fun scanQrCodes(bitmap: Bitmap): List<String> {

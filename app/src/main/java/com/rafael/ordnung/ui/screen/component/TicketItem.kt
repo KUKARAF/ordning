@@ -3,6 +3,7 @@ package com.rafael.ordnung.ui.screen.component
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -225,7 +226,7 @@ fun TicketItem(
 private fun getTravelTypeIcon(travelType: TravelType) = when (travelType) {
     TravelType.TRAIN -> Icons.Default.Train
     TravelType.BUS -> Icons.Default.DirectionsBus
-    TravelType.FLIGHT -> Icons.Default.Flight
+    TravelType.FLIGHT -> Icons.Default.FlightTakeoff
     TravelType.FERRY -> Icons.Default.DirectionsBoat
     TravelType.UNKNOWN -> Icons.Default.Help
 }
