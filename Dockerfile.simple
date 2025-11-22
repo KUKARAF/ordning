@@ -1,14 +1,40 @@
-# Simple Dockerfile to demonstrate Docker-based builds
-FROM eclipse-temurin:17-jdk-jammy
+# Use a lightweight Ubuntu base with Android tools
+FROM ubuntu:22.04
 
-# Install necessary packages
+# Avoid interactive prompts during installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install required packages
 RUN apt-get update && apt-get install -y \
+    openjdk-17-jdk \
     wget \
     unzip \
     git \
     curl \
-    bash \
     && rm -rf /var/lib/apt/lists/*
+
+# Set environment variables for Android SDK
+ENV ANDROID_SDK_ROOT=/opt/android-sdk
+ENV ANDROID_HOME=/opt/android-sdk
+ENV PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/34.0.0
+
+# Download and install Android SDK
+RUN mkdir -p $ANDROID_SDK_ROOT && \
+    cd $ANDROID_SDK_ROOT && \
+    wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip && \
+    unzip commandlinetools-linux-11076708_latest.zip && \
+    mkdir -p cmdline-tools/latest && \
+    mv cmdline-tools/* cmdline-tools/latest/ && \
+    rm commandlinetools-linux-11076708_latest.zip
+
+# Install Android SDK components
+RUN yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT \
+    "platforms;android-34" \
+    "build-tools;34.0.0" \
+    "platform-tools"
+
+# Accept licenses
+RUN yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT --licenses
 
 # Set working directory
 WORKDIR /app
@@ -16,17 +42,8 @@ WORKDIR /app
 # Copy project files
 COPY . .
 
-# Create a simple script to simulate the build process
-RUN echo '#!/bin/bash\n\
-echo "=== Docker-based Build Environment ==="\n\
-echo "Simulating Android build process..."\n\
-echo "Running unit tests..."\n\
-echo "Tests passed!"\n\
-echo "Running lint checks..."\n\
-echo "Lint checks passed!"\n\
-echo "Building APK..."\n\
-echo "APK built successfully!"\n\
-' > /app/build.sh && chmod +x /app/build.sh
+# Make gradlew executable
+RUN chmod +x ./gradlew
 
 # Default command
-CMD ["/app/build.sh"]
+CMD ["./gradlew", "assembleDebug"]
