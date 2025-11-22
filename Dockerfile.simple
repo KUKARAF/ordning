@@ -1,40 +1,32 @@
-# Use a lightweight Ubuntu base with Android tools
-FROM ubuntu:22.04
-
-# Avoid interactive prompts during installation
-ENV DEBIAN_FRONTEND=noninteractive
+# Use lightweight base with Java
+FROM eclipse-temurin:17-jdk-alpine
 
 # Install required packages
-RUN apt-get update && apt-get install -y \
-    openjdk-17-jdk \
+RUN apk add --no-cache \
     wget \
     unzip \
     git \
     curl \
-    && rm -rf /var/lib/apt/lists/*
+    bash
 
 # Set environment variables for Android SDK
 ENV ANDROID_SDK_ROOT=/opt/android-sdk
 ENV ANDROID_HOME=/opt/android-sdk
 ENV PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/34.0.0
 
-# Download and install Android SDK
+# Download and install Android SDK (minimal)
 RUN mkdir -p $ANDROID_SDK_ROOT && \
     cd $ANDROID_SDK_ROOT && \
     wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip && \
     unzip commandlinetools-linux-11076708_latest.zip && \
     mkdir -p cmdline-tools/latest && \
     mv cmdline-tools/* cmdline-tools/latest/ && \
-    rm commandlinetools-linux-11076708_latest.zip
-
-# Install Android SDK components
-RUN yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT \
+    rm commandlinetools-linux-11076708_latest.zip && \
+    yes | cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT \
     "platforms;android-34" \
     "build-tools;34.0.0" \
-    "platform-tools"
-
-# Accept licenses
-RUN yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT --licenses
+    "platform-tools" && \
+    yes | cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT --licenses
 
 # Set working directory
 WORKDIR /app
