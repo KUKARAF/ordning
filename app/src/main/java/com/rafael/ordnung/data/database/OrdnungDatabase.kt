@@ -18,6 +18,7 @@ import javax.inject.Inject
     version = 1,
     exportSchema = true
 )
+@TypeConverters(Converters::class)
 abstract class OrdnungDatabase : RoomDatabase() {
     abstract fun ticketDao(): TicketDao
 }
