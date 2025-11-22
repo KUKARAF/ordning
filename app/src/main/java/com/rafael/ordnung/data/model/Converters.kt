@@ -1,4 +1,4 @@
-package com.rafael.ordination.data.model
+package com.rafael.ordnung.data.model
 
 import androidx.room.TypeConverter
 import java.time.LocalDateTime
