@@ -113,7 +113,7 @@ fun TicketItem(
                                 )
                                 
                                 Icon(
-                                    imageVector = Icons.Default.East,
+                                    imageVector = Icons.Default.ArrowForward,
                                     contentDescription = null,
                                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -224,7 +224,7 @@ fun TicketItem(
 
 @Composable
 private fun getTravelTypeIcon(travelType: TravelType) = when (travelType) {
-    TravelType.TRAIN -> Icons.Default.Train
+    TravelType.TRAIN -> Icons.Default.DirectionsRailway
     TravelType.BUS -> Icons.Default.DirectionsBus
     TravelType.FLIGHT -> Icons.Default.FlightTakeoff
     TravelType.FERRY -> Icons.Default.DirectionsBoat

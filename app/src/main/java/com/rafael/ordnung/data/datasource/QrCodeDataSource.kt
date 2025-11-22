@@ -43,22 +43,11 @@ class QrCodeDataSource @Inject constructor() {
         return qrCodes
     }
     
-    @Suppress("UNCHECKED_CAST")
     private fun convertToBitmap(image: Any): Bitmap {
-        // For Android-compatible PDFBox, try to handle both AWT and Android bitmap scenarios
+        // For Android PDFBox, the rendered image should be directly convertible to Bitmap
         return try {
-            // If it's already an Android Bitmap (some PDFBox Android versions support this)
-            image as? Bitmap ?: run {
-                // Fallback for AWT BufferedImage (shouldn't happen with Android PDFBox but just in case)
-                val bufferedImage = image as java.awt.image.BufferedImage
-                val width = bufferedImage.width
-                val height = bufferedImage.height
-                
-                val pixels = IntArray(width * height)
-                bufferedImage.getRGB(0, 0, width, height, pixels, 0, width)
-                
-                Bitmap.createBitmap(pixels, width, height, Bitmap.Config.ARGB_8888)
-            }
+            // PDFBox Android should render directly to Android Bitmap
+            image as Bitmap
         } catch (e: Exception) {
             // Last resort - create a placeholder bitmap
             Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888)

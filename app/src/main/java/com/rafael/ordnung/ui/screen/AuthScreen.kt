@@ -62,7 +62,7 @@ fun AuthScreen(
     ) {
         // App logo/icon
         Icon(
-            imageVector = Icons.Default.Train,
+            imageVector = Icons.Default.DirectionsRailway,
             contentDescription = null,
             modifier = Modifier.size(80.dp),
             tint = MaterialTheme.colorScheme.primary
@@ -142,7 +142,7 @@ fun AuthScreen(
                     
                     if (user.isEmailVerified) {
                         Icon(
-                            imageVector = Icons.Default.Verified,
+                            imageVector = Icons.Default.CheckCircle,
                             contentDescription = "Verified",
                             tint = MaterialTheme.colorScheme.primary
                         )

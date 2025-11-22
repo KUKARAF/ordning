@@ -15,7 +15,8 @@ import com.rafael.ordnung.domain.model.AuthSession
 import com.rafael.ordnung.domain.model.AuthToken
 import com.rafael.ordnung.domain.model.User
 import dagger.hilt.android.qualifiers.ApplicationContext
-import com.google.android.gms.tasks.await
+import kotlinx.coroutines.tasks.await
+import com.google.android.gms.common.Scopes
 import java.time.LocalDateTime
 import java.time.ZoneId
 import javax.inject.Inject
