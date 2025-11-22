@@ -3,6 +3,7 @@ package com.rafael.ordnung.data.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.rafael.ordnung.domain.model.TravelType
+import com.rafael.ordnung.domain.model.Ticket
 import java.time.LocalDateTime
 
 @Entity(tableName = "tickets")
@@ -27,3 +28,50 @@ data class TicketEntity(
     val isProcessed: Boolean = false,
     val errorMessage: String? = null
 )
+
+// Extension functions for mapping
+fun TicketEntity.toDomainModel(): Ticket {
+    return Ticket(
+        id = id,
+        fileName = fileName,
+        filePath = filePath,
+        fileHash = fileHash,
+        passengerName = passengerName,
+        travelType = TravelType.valueOf(travelType),
+        departureLocation = departureLocation,
+        arrivalLocation = arrivalLocation,
+        departureTime = departureTime,
+        arrivalTime = arrivalTime,
+        trainNumber = trainNumber,
+        seatNumber = seatNumber,
+        carriageNumber = carriageNumber,
+        qrCodeData = qrCodeData,
+        rawText = rawText,
+        processedAt = processedAt,
+        isProcessed = isProcessed,
+        errorMessage = errorMessage
+    )
+}
+
+fun Ticket.toEntity(): TicketEntity {
+    return TicketEntity(
+        id = id,
+        fileName = fileName,
+        filePath = filePath,
+        fileHash = fileHash,
+        passengerName = passengerName,
+        travelType = travelType.name,
+        departureLocation = departureLocation,
+        arrivalLocation = arrivalLocation,
+        departureTime = departureTime,
+        arrivalTime = arrivalTime,
+        trainNumber = trainNumber,
+        seatNumber = seatNumber,
+        carriageNumber = carriageNumber,
+        qrCodeData = qrCodeData,
+        rawText = rawText,
+        processedAt = processedAt,
+        isProcessed = isProcessed,
+        errorMessage = errorMessage
+    )
+}

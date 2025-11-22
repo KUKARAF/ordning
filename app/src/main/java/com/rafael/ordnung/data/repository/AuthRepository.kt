@@ -9,6 +9,7 @@ import com.rafael.ordnung.domain.model.AuthToken
 import com.rafael.ordnung.domain.model.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.first
 import java.time.LocalDateTime
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -42,14 +43,14 @@ class AuthRepository @Inject constructor(
         // For simplicity, get the first user (in real app, you'd track current user ID)
         return userDao.getAllUsers().map { users ->
             users.firstOrNull()?.toDomainModel()
-        }.value
+        }.first()
     }
     
     suspend fun getCurrentToken(): AuthToken? {
         // For simplicity, get the first token (in real app, you'd track current user ID)
         return authTokenDao.getAllTokens().map { tokens ->
             tokens.firstOrNull()?.toDomainModel()
-        }.value
+        }.first()
     }
     
     suspend fun updateToken(token: AuthToken, userId: String) {
