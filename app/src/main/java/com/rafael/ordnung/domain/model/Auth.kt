@@ -1,4 +1,4 @@
-package com.rafael.ordination.domain.model
+package com.rafael.ordnung.domain.model
 
 import java.time.LocalDateTime
 

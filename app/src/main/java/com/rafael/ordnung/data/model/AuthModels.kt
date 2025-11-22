@@ -1,8 +1,8 @@
-package com.rafael.ordination.data.model
+package com.rafael.ordnung.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.rafael.ordination.domain.model.AuthToken
+import com.rafael.ordnung.domain.model.AuthToken
 import java.time.LocalDateTime
 
 @Entity(tableName = "auth_tokens")
@@ -53,8 +53,8 @@ fun AuthToken.toEntity(userId: String): AuthTokenEntity {
     )
 }
 
-fun UserEntity.toDomainModel(): com.rafael.ordination.domain.model.User {
-    return com.rafael.ordination.domain.model.User(
+fun UserEntity.toDomainModel(): com.rafael.ordnung.domain.model.User {
+    return com.rafael.ordnung.domain.model.User(
         id = id,
         email = email,
         displayName = displayName,
@@ -63,7 +63,7 @@ fun UserEntity.toDomainModel(): com.rafael.ordination.domain.model.User {
     )
 }
 
-fun com.rafael.ordination.domain.model.User.toEntity(): UserEntity {
+fun com.rafael.ordnung.domain.model.User.toEntity(): UserEntity {
     return UserEntity(
         id = id,
         email = email,

@@ -2,8 +2,8 @@ package com.rafael.ordnung.data.datasource
 
 import android.content.Context
 import android.net.Uri
-import com.rafael.ordination.domain.model.Ticket
-import com.rafael.ordination.domain.model.TravelType
+import com.rafael.ordnung.domain.model.Ticket
+import com.rafael.ordnung.domain.model.TravelType
 import dagger.hilt.android.qualifiers.ApplicationContext
 import org.apache.pdfbox.pdmodel.PDDocument
 import org.apache.pdfbox.text.PDFTextStripper

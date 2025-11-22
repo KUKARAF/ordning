@@ -1,12 +1,12 @@
-package com.rafael.ordination.domain.usecase
+package com.rafael.ordnung.domain.usecase
 
-import com.rafael.ordination.data.datasource.GoogleAuthDataSource
-import com.rafael.ordination.data.repository.AuthRepository
-import com.rafael.ordination.domain.model.AuthResult
-import com.rafael.ordination.domain.model.AuthSession
-import com.rafael.ordination.domain.model.AuthState
-import com.rafael.ordination.domain.model.AuthToken
-import com.rafael.ordination.domain.model.User
+import com.rafael.ordnung.data.datasource.GoogleAuthDataSource
+import com.rafael.ordnung.data.repository.AuthRepository
+import com.rafael.ordnung.domain.model.AuthResult
+import com.rafael.ordnung.domain.model.AuthSession
+import com.rafael.ordnung.domain.model.AuthState
+import com.rafael.ordnung.domain.model.AuthToken
+import com.rafael.ordnung.domain.model.User
 import io.mockk.*
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest

@@ -1,8 +1,8 @@
-package com.rafael.ordination.data.model
+package com.rafael.ordnung.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.rafael.ordination.domain.model.*
+import com.rafael.ordnung.domain.model.*
 
 @Entity(tableName = "calendar_events")
 data class CalendarEventEntity(

@@ -1,4 +1,4 @@
-package com.rafael.ordination.data.datasource
+package com.rafael.ordnung.data.datasource
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test

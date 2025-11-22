@@ -1,4 +1,4 @@
-package com.rafael.ordination.ui.permission
+package com.rafael.ordnung.ui.permission
 
 import android.Manifest
 import android.content.Context

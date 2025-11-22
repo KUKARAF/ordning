@@ -1,12 +1,12 @@
-package com.rafael.ordination.ui.viewmodel
+package com.rafael.ordnung.ui.viewmodel
 
 import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rafael.ordination.data.datasource.GoogleAuthDataSource
-import com.rafael.ordination.data.repository.AuthRepository
-import com.rafael.ordination.domain.model.AuthState
-import com.rafael.ordination.domain.model.User
+import com.rafael.ordnung.data.datasource.GoogleAuthDataSource
+import com.rafael.ordnung.data.repository.AuthRepository
+import com.rafael.ordnung.domain.model.AuthState
+import com.rafael.ordnung.domain.model.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

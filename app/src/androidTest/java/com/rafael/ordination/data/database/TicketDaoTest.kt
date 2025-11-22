@@ -1,10 +1,10 @@
-package com.rafael.ordination.data.database
+package com.rafael.ordnung.data.database
 
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.rafael.ordination.data.model.TicketEntity
-import com.rafael.ordination.domain.model.TravelType
+import com.rafael.ordnung.data.model.TicketEntity
+import com.rafael.ordnung.domain.model.TravelType
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After

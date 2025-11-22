@@ -1,4 +1,4 @@
-package com.rafael.ordination.ui.screen
+package com.rafael.ordnung.ui.screen
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import com.rafael.ordination.ui.screen.component.GoogleSignInButton
-import com.rafael.ordination.ui.viewmodel.AuthViewModel
+import com.rafael.ordnung.ui.screen.component.GoogleSignInButton
+import com.rafael.ordnung.ui.viewmodel.AuthViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

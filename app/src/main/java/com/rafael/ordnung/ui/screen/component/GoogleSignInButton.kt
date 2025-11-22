@@ -1,4 +1,4 @@
-package com.rafael.ordination.ui.screen.component
+package com.rafael.ordnung.ui.screen.component
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape

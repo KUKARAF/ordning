@@ -1,9 +1,9 @@
-package com.rafael.ordination.data.repository
+package com.rafael.ordnung.data.repository
 
-import com.rafael.ordination.data.database.TicketDao
-import com.rafael.ordination.data.model.TicketEntity
-import com.rafael.ordination.domain.model.Ticket
-import com.rafael.ordination.domain.model.TravelType
+import com.rafael.ordnung.data.database.TicketDao
+import com.rafael.ordnung.data.model.TicketEntity
+import com.rafael.ordnung.domain.model.Ticket
+import com.rafael.ordnung.domain.model.TravelType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.LocalDateTime

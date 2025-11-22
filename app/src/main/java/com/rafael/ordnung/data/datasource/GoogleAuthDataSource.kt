@@ -1,4 +1,4 @@
-package com.rafael.ordination.data.datasource
+package com.rafael.ordnung.data.datasource
 
 import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -11,10 +11,10 @@ import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.json.gson.GsonFactory
 import com.google.api.services.calendar.CalendarScopes
 import com.google.api.services.drive.DriveScopes
-import com.rafael.ordination.domain.model.AuthResult
-import com.rafael.ordination.domain.model.AuthSession
-import com.rafael.ordination.domain.model.AuthToken
-import com.rafael.ordination.domain.model.User
+import com.rafael.ordnung.domain.model.AuthResult
+import com.rafael.ordnung.domain.model.AuthSession
+import com.rafael.ordnung.domain.model.AuthToken
+import com.rafael.ordnung.domain.model.User
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.tasks.await
 import java.time.LocalDateTime
@@ -29,7 +29,7 @@ class GoogleAuthDataSource @Inject constructor(
     
     private val googleSignInClient: GoogleSignInClient by lazy {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(context.getString(com.rafael.ordination.R.string.default_web_client_id))
+            .requestIdToken(context.getString(com.rafael.ordnung.R.string.default_web_client_id))
             .requestEmail()
             .requestProfile()
             .requestScopes(

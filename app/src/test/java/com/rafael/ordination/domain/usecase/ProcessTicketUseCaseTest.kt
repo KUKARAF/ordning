@@ -1,10 +1,10 @@
-package com.rafael.ordination.domain.usecase
+package com.rafael.ordnung.domain.usecase
 
 import android.net.Uri
-import com.rafael.ordination.data.datasource.PdfParsingDataSource
-import com.rafael.ordination.data.repository.TicketRepository
-import com.rafael.ordination.domain.model.Ticket
-import com.rafael.ordination.domain.model.TravelType
+import com.rafael.ordnung.data.datasource.PdfParsingDataSource
+import com.rafael.ordnung.data.repository.TicketRepository
+import com.rafael.ordnung.domain.model.Ticket
+import com.rafael.ordnung.domain.model.TravelType
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk

@@ -1,8 +1,8 @@
-package com.rafael.ordination.data.datasource
+package com.rafael.ordnung.data.datasource
 
 import android.content.Context
 import android.net.Uri
-import com.rafael.ordination.domain.model.TravelType
+import com.rafael.ordnung.domain.model.TravelType
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkStatic

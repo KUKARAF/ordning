@@ -1,12 +1,12 @@
-package com.rafael.ordination.data.datasource
+package com.rafael.ordnung.data.datasource
 
 import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.rafael.ordination.domain.model.AuthResult
-import com.rafael.ordination.domain.model.AuthSession
-import com.rafael.ordination.domain.model.AuthToken
-import com.rafael.ordination.domain.model.User
+import com.rafael.ordnung.domain.model.AuthResult
+import com.rafael.ordnung.domain.model.AuthSession
+import com.rafael.ordnung.domain.model.AuthToken
+import com.rafael.ordnung.domain.model.User
 import io.mockk.*
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.*
