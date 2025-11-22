@@ -12,6 +12,7 @@ import com.google.zxing.common.HybridBinarizer
 import com.google.zxing.multi.qrcode.QRCodeMultiReader
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.rendering.PDFRenderer
+import java.awt.image.BufferedImage
 import java.io.ByteArrayInputStream
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -44,10 +45,22 @@ class QrCodeDataSource @Inject constructor() {
     }
     
     private fun convertToBitmap(image: Any): Bitmap {
-        // For Android PDFBox, the rendered image should be directly convertible to Bitmap
         return try {
-            // PDFBox Android should render directly to Android Bitmap
-            image as Bitmap
+            when (image) {
+                is Bitmap -> image
+                is BufferedImage -> {
+                    // Convert BufferedImage to Android Bitmap
+                    val width = image.width
+                    val height = image.height
+                    val pixels = IntArray(width * height)
+                    image.getRGB(0, 0, width, height, pixels, 0, width)
+                    Bitmap.createBitmap(pixels, width, height, Bitmap.Config.ARGB_8888)
+                }
+                else -> {
+                    // Last resort - create a placeholder bitmap
+                    Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888)
+                }
+            }
         } catch (e: Exception) {
             // Last resort - create a placeholder bitmap
             Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888)
