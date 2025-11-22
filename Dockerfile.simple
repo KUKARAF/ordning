@@ -19,9 +19,10 @@ RUN mkdir -p $ANDROID_SDK_ROOT && \
     cd $ANDROID_SDK_ROOT && \
     wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip && \
     unzip commandlinetools-linux-11076708_latest.zip && \
+    mv cmdline-tools cmdline-tools-temp && \
     mkdir -p cmdline-tools/latest && \
-    mv cmdline-tools/* cmdline-tools/latest/ && \
-    rm commandlinetools-linux-11076708_latest.zip && \
+    mv cmdline-tools-temp/* cmdline-tools/latest/ && \
+    rm -rf cmdline-tools-temp commandlinetools-linux-11076708_latest.zip && \
     yes | cmdline-tools/latest/bin/sdkmanager --sdk_root=$ANDROID_SDK_ROOT \
     "platforms;android-34" \
     "build-tools;34.0.0" \
