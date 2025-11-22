@@ -34,13 +34,5 @@ object DatabaseModule {
         return database.ticketDao()
     }
     
-    @Provides
-    fun provideUserDao(database: OrdnungDatabase): UserDao {
-        return database.userDao()
-    }
-    
-    @Provides
-    fun provideAuthTokenDao(database: OrdnungDatabase): AuthTokenDao {
-        return database.authTokenDao()
-    }
+
 }
