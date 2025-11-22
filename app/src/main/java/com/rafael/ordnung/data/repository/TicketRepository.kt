@@ -2,6 +2,8 @@ package com.rafael.ordnung.data.repository
 
 import com.rafael.ordnung.data.database.TicketDao
 import com.rafael.ordnung.data.model.TicketEntity
+import com.rafael.ordnung.data.model.toDomainModel
+import com.rafael.ordnung.data.model.toEntity
 import com.rafael.ordnung.domain.model.Ticket
 import com.rafael.ordnung.domain.model.TravelType
 import kotlinx.coroutines.flow.Flow
