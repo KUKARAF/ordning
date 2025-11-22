@@ -1,7 +1,7 @@
-package com.rafael.ordination.data.database
+package com.rafael.ordnung.data.database
 
 import androidx.room.*
-import com.rafael.ordination.data.model.UserEntity
+import com.rafael.ordnung.data.model.UserEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
