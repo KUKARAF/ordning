@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rafael.ordnung.ui.screen.AuthScreen
 import com.rafael.ordnung.ui.screen.TicketListScreen
 import com.rafael.ordnung.ui.theme.OrdnungTheme
