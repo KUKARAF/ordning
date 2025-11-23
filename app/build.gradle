@@ -37,10 +37,14 @@ android {
     }
     
     // Force Kotlin version compatibility
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    tasks.withType(org.jetbrains.gradle.tasks.KotlinCompile).configureEach {
         kotlinOptions {
             jvmTarget = '1.8'
-        freeCompilerArgs += ['-Xskip-prerelease-check']
+        }
+        apiVersion = '1.8'
+        languageVersion = '1.8'
+        allWarningsAsErrors = false
+    }
         apiVersion = '1.8'
         languageVersion = '1.8'
         allWarningsAsErrors = false
