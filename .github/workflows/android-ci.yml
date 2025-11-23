@@ -7,89 +7,39 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     
     steps:
     - uses: actions/checkout@v4
     
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-      
-    - name: Build Docker image
-      run: |
-        docker build -t ordnung-android-build -f Dockerfile.simple .
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
         
-    - name: Run tests in Docker
-      run: |
-        docker run --rm \
-          -v ${{ github.workspace }}:/app \
-          --memory=4g \
-          --cpus=2 \
-          ordnung-android-build bash -c "cd /app && \
-          export GRADLE_OPTS='-Xmx2g -XX:MaxMetaspaceSize=512m' && \
-          export ANDROID_AAPT2_EXTRA_ARGS='--no-daemon' && \
-          ./gradlew testDebugUnitTest || echo 'Tests completed'"
-        
-    - name: Run lint in Docker
-      run: |
-        docker run --rm \
-          -v ${{ github.workspace }}:/app \
-          --memory=4g \
-          --cpus=2 \
-          ordnung-android-build bash -c "cd /app && \
-          export GRADLE_OPTS='-Xmx2g -XX:MaxMetaspaceSize=512m' && \
-          export ANDROID_AAPT2_EXTRA_ARGS='--no-daemon' && \
-          ./gradlew lintDebug || echo 'Lint completed'"
-        
-    - name: Build debug APK in Docker
-      run: |
-        docker run --rm \
-          -v ${{ github.workspace }}:/app \
-          --memory=4g \
-          --cpus=2 \
-          ordnung-android-build bash -c "cd /app && \
-          export GRADLE_OPTS='-Xmx2g -XX:MaxMetaspaceSize=512m' && \
-          export ANDROID_AAPT2_EXTRA_ARGS='--no-daemon' && \
-          ./gradlew assembleDebug -Dorg.gradle.daemon=false || echo 'Build completed'"
-        
-    - name: Find APK files (Docker)
-      id: find-apk
-      run: |
-        echo "Searching for APK files after Docker build..."
-        if find app/build/outputs/apk -name "*.apk" -type f; then
-          echo "apk_found=true" >> $GITHUB_OUTPUT
-          echo "APK files found!"
-        else
-          echo "apk_found=false" >> $GITHUB_OUTPUT
-          echo "No APK files found, will trigger fallback build"
-        fi
-        ls -la app/build/outputs/apk/debug/ || echo "Debug directory not found"
-        
-    - name: Setup Android SDK (Fallback)
-      if: steps.find-apk.outputs.apk_found == 'false'
+    - name: Setup Android SDK
       uses: android-actions/setup-android@v3
-        
-    - name: Build debug APK (Fallback)
-      if: steps.find-apk.outputs.apk_found == 'false'
-      run: |
-        echo "Docker build failed to produce APK, attempting fallback build..."
-        export GRADLE_OPTS='-Xmx2g -XX:MaxMetaspaceSize=512m'
-        export ANDROID_AAPT2_EXTRA_ARGS='--no-daemon'
-        ./gradlew assembleDebug -Dorg.gradle.daemon=false --no-daemon
-        
-    - name: Find APK files (Fallback)
-      if: steps.find-apk.outputs.apk_found == 'false'
-      run: |
-        echo "Searching for APK files after fallback build..."
-        find app/build/outputs/apk -name "*.apk" -type f || echo "No APK files found"
-        ls -la app/build/outputs/apk/debug/ || echo "Debug directory not found"
-        
+      
+    - name: Cache Gradle packages
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+          
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+      
+    - name: Build debug APK
+      run: ./gradlew assembleDebug
+      
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: debug-apk
-        path: |
-          app/build/outputs/apk/debug/*.apk
-          app/build/outputs/apk/release/*.apk
-        if-no-files-found: warn
+        path: app/build/outputs/apk/debug/*.apk
