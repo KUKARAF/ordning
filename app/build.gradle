@@ -90,9 +90,9 @@ dependencies {
     implementation 'androidx.room:room-ktx:2.6.0'
     kapt 'androidx.room:room-compiler:2.6.0'
     
-    // PDF Processing
-    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
-    implementation 'org.apache.pdfbox:pdfbox:2.0.27'
+    // PDF Processing - temporarily commented out
+    // implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+    // implementation 'org.apache.pdfbox:pdfbox:2.0.27'
     
     // QR Code
     implementation 'com.google.zxing:core:3.5.2'
