@@ -1,4 +1,4 @@
-package com.rafael.ordnung.data.database
+package com.rafael.ordination.data.database
 
 import androidx.room.Database
 import androidx.room.Room
@@ -7,8 +7,10 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import android.content.Context
-import com.rafael.ordnung.data.model.TicketEntity
-import com.rafael.ordnung.data.model.Converters
+import com.rafael.ordination.data.model.TicketEntity
+import com.rafael.ordination.data.model.AuthTokenEntity
+import com.rafael.ordination.data.model.UserEntity
+import com.rafael.ordination.data.model.Converters
 import javax.inject.Inject
 
 @Database(
