@@ -31,4 +31,3 @@ jobs:
       with:
         name: debug-apk
         path: app/build/outputs/apk/debug/*.apk// Updated for build trigger
-// Updated for APK build trigger
