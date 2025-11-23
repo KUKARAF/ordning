@@ -54,25 +54,32 @@ jobs:
           ./gradlew assembleDebug -Dorg.gradle.daemon=false || echo 'Build completed'"
         
     - name: Find APK files (Docker)
+      id: find-apk
       run: |
         echo "Searching for APK files after Docker build..."
-        find app/build/outputs/apk -name "*.apk" -type f || echo "No APK files found"
+        if find app/build/outputs/apk -name "*.apk" -type f; then
+          echo "apk_found=true" >> $GITHUB_OUTPUT
+          echo "APK files found!"
+        else
+          echo "apk_found=false" >> $GITHUB_OUTPUT
+          echo "No APK files found, will trigger fallback build"
+        fi
         ls -la app/build/outputs/apk/debug/ || echo "Debug directory not found"
         
     - name: Setup Android SDK (Fallback)
-      if: failure()
+      if: steps.find-apk.outputs.apk_found == 'false'
       uses: android-actions/setup-android@v3
         
     - name: Build debug APK (Fallback)
-      if: failure()
+      if: steps.find-apk.outputs.apk_found == 'false'
       run: |
-        echo "Docker build failed, attempting fallback build..."
+        echo "Docker build failed to produce APK, attempting fallback build..."
         export GRADLE_OPTS='-Xmx2g -XX:MaxMetaspaceSize=512m'
         export ANDROID_AAPT2_EXTRA_ARGS='--no-daemon'
         ./gradlew assembleDebug -Dorg.gradle.daemon=false --no-daemon
         
     - name: Find APK files (Fallback)
-      if: failure()
+      if: steps.find-apk.outputs.apk_found == 'false'
       run: |
         echo "Searching for APK files after fallback build..."
         find app/build/outputs/apk -name "*.apk" -type f || echo "No APK files found"
